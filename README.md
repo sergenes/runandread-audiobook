@@ -43,7 +43,8 @@ Currently, it relies on the standard voices embedded in **Apple** and **Android*
 
 Here are some audiobook samples generated using RunAndRead-Audiobook with **Zonos TTS voice cloning**:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/cy8pdPn7gNk" frameborder="0" allowfullscreen></iframe>
+[![Sample 1 - *Alice in Wonderland*](https://img.youtube.com/vi/cy8pdPn7gNk/0.jpg)](https://www.youtube.com/shorts/cy8pdPn7gNk)  
+🔊 **Click the image to listen!**
 
 📌 You can generate your own samples using the steps outlined in the **Usage** section below.
 
