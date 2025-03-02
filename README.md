@@ -18,11 +18,13 @@ open-source models like **Zyphra/Zonos**.
 The ultimate goal is to make **Run & Read**, the audiobook player app, sound more natural by using high-quality voices.
 Currently, it relies on the standard voices embedded in **Apple** and **Android** devices, which are still not perfect.
 
-📲 **Download and try the apps for free!**  
-🛠️ **The Android (Kotlin Compose) and iOS (SwiftUI) projects will be open-sourced soon.**
+**Download and try the apps for free!**  
 
 🍏 **App Store**: [https://lnkd.in/eGaY62Jw](https://lnkd.in/eGaY62Jw)  
 🤖 **Google Play**: [https://lnkd.in/e3t5UGfw](https://lnkd.in/e3t5UGfw)
+
+**The Android (Kotlin Compose) and iOS (SwiftUI) projects will be open-sourced soon.**
+
 
 ---
 
@@ -30,11 +32,11 @@ Currently, it relies on the standard voices embedded in **Apple** and **Android*
 
 ✅ Convert EPUB to JSON for text extraction.\
 ✅ Generate audio files using **Zonos TTS model**.\
-✅ Clone voices from provided MP3 samples.\
+✅ Clone voices from provided MP3 sample.\
 ✅ Play audio clips sequentially while displaying text in the terminal.\
 ✅ Merge audio clips into one file.\
-🔜 Text preprocessing to improve speech output (e.g., adding punctuation, removing problematic characters).  
 🔜 Deepgram API support for cloud-based TTS.\
+🔜 Transfer, play and control generated audio files to mobile phone app (Run&Read).\
 🔜 On-device TTS model for **mobile apps** (Android/iOS).
 
 ---
@@ -43,10 +45,9 @@ Currently, it relies on the standard voices embedded in **Apple** and **Android*
 
 Here are some audiobook samples generated using RunAndRead-Audiobook with **Zonos TTS voice cloning**:
 
-[![Sample 1 - *Alice in Wonderland*](https://img.youtube.com/vi/cy8pdPn7gNk/0.jpg)](https://www.youtube.com/shorts/cy8pdPn7gNk)  
-🔊 **Click the image to listen!**
+[[Sample 1 - *Alice in Wonderland*]](https://www.youtube.com/shorts/cy8pdPn7gNk)
 
-📌 You can generate your own samples using the steps outlined in the **Usage** section below.
+📌 You can find examples under the **audio/pg11/** folder, and generate your own samples using the steps outlined in the **Usage** section below.
 
 ---
 
