@@ -1,0 +1,15 @@
+ebooklib
+numpy
+scipy
+torch
+torchaudio
+ffmpeg-python
+pydub
+soundfile
+pyaudio
+playsound
+json
+os
+requests
+yt-dlp
+uv
