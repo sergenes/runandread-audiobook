@@ -147,10 +147,16 @@ python play_audio.py audio/pg11 mp3
 python python merge_audio_clips.py audio/pg11 mp3
 ```
 
-### **Step 5: Prepare audio clip for youtube**
+### **Step 5: Prepare audio clip for YouTube/LinkedIn**
 
 ```bash
+# YouTube
 ffmpeg -loop 1 -i assets/ic_launcher.png -i audio/pg11/merged_output.mp3 -c:v libx264 -c:a aac -b:a 192k -shortest output.mp4 
+```
+
+```bash
+# LinkedIn
+ffmpeg -loop 1 -i appGoogle.png -i merged_output.mp3 -vf "scale=1080:1080,format=yuv420p" -c:v libx264 -tune stillimage -c:a aac -b:a 192k -shortest output.mp4
 ```
 
 ---
