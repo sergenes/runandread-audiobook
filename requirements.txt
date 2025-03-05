@@ -13,3 +13,5 @@ os
 requests
 yt-dlp
 uv
+deepgram-sdk
+zyphra

@@ -35,7 +35,9 @@ Currently, it relies on the standard voices embedded in **Apple** and **Android*
 ✅ Clone voices from provided MP3 sample.\
 ✅ Play audio clips sequentially while displaying text in the terminal.\
 ✅ Merge audio clips into one file.\
-🔜 Deepgram API support for cloud-based TTS.\
+✅ Zyphra API support for cloud-based TTS.\
+✅ Deepgram API support for cloud-based TTS.\
+🔜 Calculate and confirm the Self-Cost of Complete Book Generation: Cloud vs. Local.\
 🔜 Transfer, play and control generated audio files to mobile phone app (Run&Read).\
 🔜 On-device TTS model for **mobile apps** (Android/iOS).
 
@@ -159,6 +161,20 @@ ffmpeg -loop 1 -i assets/ic_launcher.png -i audio/pg11/merged_output.mp3 -c:v li
 ffmpeg -loop 1 -i appGoogle.png -i merged_output.mp3 -vf "scale=1080:1080,format=yuv420p" -c:v libx264 -tune stillimage -c:a aac -b:a 192k -shortest output.mp4
 ```
 
+### **Step 6: Setup Rest Zyphra/Deepgram SDK**
+
+```bash
+# Zyphra
+export ZYPHRA_API_KEY="your-zyphra-api-key"
+python zyphra_api.py library/pg11.json
+```
+
+```bash
+# DeepGarm
+export DEEPGRAM_API_KEY="your-deepgram-api-key"
+python deepgram_api.py library/pg11.json
+```
+
 ---
 
 ## 📂 Project Structure
@@ -171,6 +187,8 @@ runandread-audiobook/
 ├── merge_audio_clips.py # Merges audio files into one and generates a timestamped JSON file
 ├── word_tokens_tools.py # Utility to normalize the text before pass it to the TTS
 ├── test_scan_next.py    # Unit tests to make sure text normalization works as expected
+├── zyphra_api.py        # Converts text into audio files with Zyphra SDK/Rest API API
+├── deepgram_api.py      # Converts text into audio files with Deepgram SDK/Rest API API
 ├── assets/              # Stores MP3 files for voice cloning
 ├── epub/                # EPUB books from the Gutenberg Project
 ├── audio/               # Output audio files
