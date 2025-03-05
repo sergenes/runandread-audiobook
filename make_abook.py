@@ -8,7 +8,7 @@ from zonos.model import Zonos
 from zonos.conditioning import make_cond_dict
 from zonos.utils import DEFAULT_DEVICE as device
 
-from word_tokens_tools import split_into_words, scan_next, split_into_sentences
+from word_tokens_tools import split_into_words, scan_next, split_into_sentences, save_text
 
 
 def initialize_model():
@@ -54,12 +54,6 @@ def process_text(model, speaker, text, file_name, uid_folder):
         file_path = os.path.join(uid_folder, f"{file_name}.{fmt}")
         torchaudio.save(file_path, wavs[0], model.autoencoder.sampling_rate, format=fmt)
         print(f"✅ Saved: {file_path}")
-
-
-def save_text(content, file_name, uid_folder):
-    """Saves text content to a file."""
-    with open(os.path.join(uid_folder, f"{file_name}.txt"), "w", encoding="utf-8") as f:
-        f.write(content)
 
 
 if __name__ == "__main__":
