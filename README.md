@@ -134,7 +134,7 @@ it was stopped.**
 ### **Step 2: Generate TTS Audio Files**
 
 ```bash
-uv run python make_abook.py library/pg11.json
+uv run python make_abook.py library/pg21279.json assets/kurt_v.mp3
 ```
 
 ### **Step 3: Play Audiobook in CLI**
@@ -146,7 +146,7 @@ python play_audio.py audio/pg11 mp3
 ### **Step 4: Merge a set of audio clips into one audio file**
 
 ```bash
-python python merge_audio_clips.py audio/pg11 mp3
+python merge_audio_clips.py audio/pg11 mp3
 ```
 
 ### **Step 5: Prepare audio clip for YouTube/LinkedIn**

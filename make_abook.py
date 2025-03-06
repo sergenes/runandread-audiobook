@@ -11,10 +11,10 @@ from zonos.utils import DEFAULT_DEVICE as device
 from word_tokens_tools import split_into_words, scan_next, split_into_sentences, save_text
 
 
-def initialize_model():
+def initialize_model(training_sample="assets/exampleaudio.mp3"):
     """Loads the Zonos model and prepares the speaker embedding."""
     model = Zonos.from_pretrained("Zyphra/Zonos-v0.1-transformer", device=device)
-    wav, sampling_rate = torchaudio.load("assets/exampleaudio.mp3")
+    wav, sampling_rate = torchaudio.load(training_sample)
     speaker = model.make_speaker_embedding(wav, sampling_rate)
     return model, speaker
 
@@ -36,7 +36,7 @@ def process_text(model, speaker, text, file_name, uid_folder):
         speaker=speaker,
         language="en-us",
         emotion=[0.5, 0.1, 0.05, 0.05, 0.05, 0.05, 0.1, 0.4],
-        speaking_rate=20.0,
+        speaking_rate=17.0,
         pitch_std=40.0,
         dnsmos_ovrl=5.0,
         vqscore_8=[0.85] * 8
@@ -57,11 +57,12 @@ def process_text(model, speaker, text, file_name, uid_folder):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: uv run python make_abook.py <path_to_json>")
+    if len(sys.argv) != 3:
+        print("Usage: uv run python make_abook.py <path_to_json> <path_to_training_sample>")
         sys.exit(1)
 
     path_to_json = sys.argv[1]
+    training_sample = sys.argv[2]
 
     uid = os.path.splitext(os.path.basename(path_to_json))[0]
     uid_folder = os.path.join("audio", uid)
@@ -74,7 +75,7 @@ if __name__ == "__main__":
         with open(index_file, "r") as f:
             last_word_index, next_window_index = map(int, f.read().strip().split(":"))
 
-    print(f"🚀 Processing {path_to_json}, resuming from index {last_word_index}; {next_window_index}")
+    print(f"🚀 Processing {path_to_json}, training_sample {training_sample}, resuming from index {last_word_index}; {next_window_index}")
 
     with open(path_to_json, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -84,10 +85,10 @@ if __name__ == "__main__":
         exit(1)
 
     global model, audio_prefix_codes
-    model, speaker = initialize_model()
+    model, speaker = initialize_model(training_sample=training_sample)
     audio_prefix_codes = load_audio_prefix()
 
-    max_word_number = 80
+    max_word_number = 70
     sentences = [sentence.strip() for paragraph in data["text"] for sentence in split_into_sentences(paragraph) if
                  sentence.strip()]
     words = split_into_words(sentences)
