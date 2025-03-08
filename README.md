@@ -234,6 +234,8 @@ Contributions are welcome! Feel free to open an issue or submit a pull request.
 ## 📜 References & Kudos
 
 - **[Zonos](https://github.com/Zyphra/Zonos)** - Open-source TTS model.
+- **[AUDIO-MLX](https://github.com/Blaizzy/mlx-audio)** - A TTS and STS library built on Apple's MLX framework.
+- **[Kokoro-TTS](https://huggingface.co/spaces/hexgrad/Kokoro-TTS)** - An open-weight TTS model with 82 million parameters.
 - **[Deepgram](https://deepgram.com/)** - Commercial cloud-based TTS (future integration).
 - **[EbookLib](https://pypi.org/project/EbookLib/)** - EPUB parsing in Python.
 - **[yt-dlp](https://github.com/yt-dlp/yt-dlp)** - YouTube audio downloader for voice cloning.
