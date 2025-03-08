@@ -175,7 +175,22 @@ export DEEPGRAM_API_KEY="your-deepgram-api-key"
 python deepgram_api.py library/pg11.json
 ```
 
+### **Step 7: Setup MLX-AUDIO (cloned local repo)**
+
+```bash
+pip install -e ~/projects/voice/mlx-audio
+```
 ---
+🚨 **Note**: Kokoro-82M TTS model skips names and other out-of-dictionary (OOD) words due to its reliance on an external grapheme-to-phoneme (g2p) conversion tool called espeak-ng2. This behavior occurs when espeak-ng is not properly installed or detected by the system.
+To prevent Kokoro-82M from skipping names and OOD words, you need to install `espeak-ng`
+
+```bash
+echo 'export ESPEAK_DATA_PATH=/opt/homebrew/share/espeak-ng-data' >> ~/.zshrc
+source ~/.zshrc
+
+# make audio book
+python make_abook_mlx.py library/pg2680.json 
+```
 
 ## 📂 Project Structure
 
@@ -183,6 +198,7 @@ python deepgram_api.py library/pg11.json
 runandread-audiobook/
 ├── epub_to_json.py      # Extracts text from EPUB into JSON
 ├── make_abook.py        # Converts text into audio files with Zonos TTS
+├── make_abook_mlx.py    # Converts text into audio files using the Kokoro-82M TTS model with mlx-audio (optimized for Apple M-series processors).
 ├── play_audio.py        # Play audio clips sequentially while displaying text
 ├── merge_audio_clips.py # Merges audio files into one and generates a timestamped JSON file
 ├── word_tokens_tools.py # Utility to normalize the text before pass it to the TTS
