@@ -32,6 +32,7 @@ Currently, it relies on the standard voices embedded in **Apple** and **Android*
 
 ✅ Convert EPUB to JSON for text extraction.\
 ✅ Generate audio files using **Zonos TTS model**.\
+✅ Generate audio files using **Kokoro-TTS** by **AUDIO-MLX**.\
 ✅ Clone voices from provided MP3 sample.\
 ✅ Play audio clips sequentially while displaying text in the terminal.\
 ✅ Merge audio clips into one file.\
@@ -223,9 +224,6 @@ Contributions are welcome! Feel free to open an issue or submit a pull request.
 ---
 
 ## 🛣️ Roadmap
-
-- ✅ **Current:** Zonos TTS support with voice cloning.
-- 🚀 **Next:** Deepgram API integration.
 - 🚀 **Next:** Transfer audio files to a mobile phone and play them in the Run & Read app.
 - 🎯 **Ultimate Goal:** On-device TTS model.
 
