@@ -17,19 +17,30 @@ open-source models like **Zyphra/Zonos**.
 
 The ultimate goal is to make **Run & Read**, the audiobook player app, sound more natural by using high-quality voices.
 Currently, it relies on the standard voices embedded in **Apple** and **Android** devices, which are still not perfect.
+Starting from Android v1.5 (6) and iOS v1.6 (18), Run & Read supports MP3 audiobooks generated using the RANDR pipeline in this repository. [See instructions here](./RANDR.MD).
 
 **Download and try the apps for free!**  
 
-🍏 **App Store**: [https://lnkd.in/eGaY62Jw](https://lnkd.in/eGaY62Jw)  
-🤖 **Google Play**: [https://lnkd.in/e3t5UGfw](https://lnkd.in/e3t5UGfw)
-
-**The Android (Kotlin Compose) and iOS (SwiftUI) projects will be open-sourced soon.**
+🍏 **App Store**: [Ran & Read for Apple Devices](https://apps.apple.com/us/app/run-read-listen-on-the-go/id6741396289)  
+🤖 **Google Play**: [Ran & Read for Android](https://play.google.com/store/apps/details?id=com.answersolutions.runandread)
 
 
+📱 **Scan QR Codes to Download:**
+
+<div align="center">
+<img src="assets/apple_runandread_qr_code.png" width="150px"> &nbsp;&nbsp;&nbsp; <img src="assets/google_runandread_qr_code.png" width="150px">
+</div>
 ---
 
-## 🚀 Features
+## 📢 New: Create Audiobooks with AI (RANDR Format)
 
+Generate **high-quality audiobooks** at home using open-source AI models! We’ve built a **pipeline** using **MLX-AUDIO** to create audiobooks in the **RANDR format**, optimized for playback in the **Run & Read** app.
+
+📖 **[Dedicated document with step-by-step instructions](./RANDR.MD)**
+
+## 🚀 Features
+✅ A fully functional pipeline for generating audiobooks compatible with the Run & Read app.
+---
 ✅ Convert EPUB to JSON for text extraction.\
 ✅ Generate audio files using **Zonos TTS model**.\
 ✅ Generate audio files using **Kokoro-TTS** by **AUDIO-MLX**.\
@@ -38,8 +49,9 @@ Currently, it relies on the standard voices embedded in **Apple** and **Android*
 ✅ Merge audio clips into one file.\
 ✅ Zyphra API support for cloud-based TTS.\
 ✅ Deepgram API support for cloud-based TTS.\
-🔜 Calculate and confirm the Self-Cost of Complete Book Generation: Cloud vs. Local.\
-🔜 Transfer, play and control generated audio files to mobile phone app (Run&Read).\
+✅ Wrap produced audio and json files into zip file readable by Run & Read App.\
+✅ Transfer audio files to a mobile phone and play them in the Run & Read App.
+🔜 Calculate the Self-Cost of Complete Book Generation: Cloud vs. Local.\
 🔜 On-device TTS model for **mobile apps** (Android/iOS).
 
 ---
@@ -147,7 +159,7 @@ python play_audio.py audio/pg11 mp3
 ### **Step 4: Merge a set of audio clips into one audio file**
 
 ```bash
-python merge_audio_clips.py audio/pg11 mp3
+python merge_audio_clips.py library/pg11.json audio/pg11 mp3
 ```
 
 ### **Step 5: Prepare audio clip for YouTube/LinkedIn**
@@ -193,6 +205,11 @@ source ~/.zshrc
 python make_abook_mlx.py library/pg2680.json 
 ```
 
+### **Step 8: Make RANDR Audiobook**
+```bash
+python make_randr.py audio/pg20203/
+```
+
 ## 📂 Project Structure
 
 ```
@@ -200,6 +217,7 @@ runandread-audiobook/
 ├── epub_to_json.py      # Extracts text from EPUB into JSON
 ├── make_abook.py        # Converts text into audio files with Zonos TTS
 ├── make_abook_mlx.py    # Converts text into audio files using the Kokoro-82M TTS model with mlx-audio (optimized for Apple M-series processors).
+├── make_randr.py        # Wrap the produced audio and JSON files into a ZIP file readable by the Run & Read app.
 ├── play_audio.py        # Play audio clips sequentially while displaying text
 ├── merge_audio_clips.py # Merges audio files into one and generates a timestamped JSON file
 ├── word_tokens_tools.py # Utility to normalize the text before pass it to the TTS
@@ -209,6 +227,9 @@ runandread-audiobook/
 ├── assets/              # Stores MP3 files for voice cloning
 ├── epub/                # EPUB books from the Gutenberg Project
 ├── audio/               # Output audio files
+├── audiobooks/          # RAND audiobooks samples
+     ├── pg2680.randr    # Meditations by Emperor of Rome Marcus Aurelius
+     ├── pg20203.randr   # Autobiography of Benjamin Franklin
 ├── library/             # Output JSON book files
 ├── README.md            # Documentation
 ├── requirements.txt     # Dependencies
@@ -224,7 +245,6 @@ Contributions are welcome! Feel free to open an issue or submit a pull request.
 ---
 
 ## 🛣️ Roadmap
-- 🚀 **Next:** Transfer audio files to a mobile phone and play them in the Run & Read app.
 - 🎯 **Ultimate Goal:** On-device TTS model.
 
 ---

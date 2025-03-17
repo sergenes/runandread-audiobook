@@ -9,12 +9,14 @@ from word_tokens_tools import split_into_words, scan_next, split_into_sentences,
 def process_text(text, file_name, uid_folder):
     """Processes text using the Kokoro model and saves it as an audio file."""
 
+    voices = ["af_heart", "bm_george", "bf_emma", "bf_isabella", "af_bella", "am_liam"]
+    voice_index = 1
     # Define parameters
     text = text
-    speed = 1.2
+    speed = 1.1
     model = "prince-canuma/Kokoro-82M"
-    voice = "af_heart"
-    lang_code = "a"
+    voice = voices[voice_index]
+    lang_code = voices[voice_index][0]
     file_path = os.path.join(uid_folder, f"{file_name}")
     generate_audio(
         model=model,
@@ -57,11 +59,11 @@ if __name__ == "__main__":
         print("⚠️ No valid 'text' field found.")
         exit(1)
 
-    max_word_number = 70
+    max_word_number = 50
     sentences = [sentence.strip() for paragraph in data["text"] for sentence in split_into_sentences(paragraph) if
                  sentence.strip()]
     words = split_into_words(sentences)
-    while next_window_index < 22:
+    while True:
         paragraph, next_word_index = scan_next(words, last_word_index, max_word_number)
 
         if next_word_index >= len(words):
@@ -76,3 +78,5 @@ if __name__ == "__main__":
             f.write(f"{next_word_index}:{next_window_index}")
 
         last_word_index = next_word_index
+        words_total = len(words)
+        print(f"In processing: {last_word_index} of {words_total}")
