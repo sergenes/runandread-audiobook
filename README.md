@@ -17,7 +17,7 @@ open-source models like **Zyphra/Zonos**.
 
 The ultimate goal is to make **Run & Read**, the audiobook player app, sound more natural by using high-quality voices.
 Currently, it relies on the standard voices embedded in **Apple** and **Android** devices, which are still not perfect.
-Starting from Android v1.5 (6) and iOS v1.6 (18), Run & Read supports MP3 audiobooks generated using the RANDR pipeline in this repository. [See instructions here](./RANDR.MD).
+Starting from Android v1.5 (6) and iOS v1.6 (18), Run & Read supports MP3 audiobooks generated using the RANDR pipeline in this repository. [See instructions here](https://github.com/sergenes/runandread-audiobook/blob/main/RANDR.md).
 
 **Download and try the apps for free!**  
 
@@ -36,7 +36,7 @@ Starting from Android v1.5 (6) and iOS v1.6 (18), Run & Read supports MP3 audiob
 
 Generate **high-quality audiobooks** at home using open-source AI models! We’ve built a **pipeline** using **MLX-AUDIO** to create audiobooks in the **RANDR format**, optimized for playback in the **Run & Read** app.
 
-📖 **[Dedicated document with step-by-step instructions](./RANDR.MD)**
+📖 **[Dedicated document with step-by-step instructions](https://github.com/sergenes/runandread-audiobook/blob/main/RANDR.md)**
 
 ## 🚀 Features
 ✅ A fully functional pipeline for generating audiobooks compatible with the Run & Read app.
