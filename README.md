@@ -172,6 +172,10 @@ ffmpeg -loop 1 -i assets/ic_launcher.png -i audio/pg11/merged_output.mp3 -c:v li
 ```bash
 # LinkedIn
 ffmpeg -loop 1 -i appGoogle.png -i merged_output.mp3 -vf "scale=1080:1080,format=yuv420p" -c:v libx264 -tune stillimage -c:a aac -b:a 192k -shortest output.mp4
+
+# X
+ffmpeg -loop 1 -i appGoogle.png -i merged_output.mp3 -vf "scale=1080:1080,format=yuv420p" -c:v libx264 -tune stillimage -c:a aac -b:a 192k -pix_fmt yuv420p -shortest output.mp4
+
 ```
 
 ### **Step 6: Setup Rest Zyphra/Deepgram SDK**

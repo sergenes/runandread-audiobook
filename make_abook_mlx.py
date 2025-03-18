@@ -19,12 +19,12 @@ def process_text(text, file_name, uid_folder):
     lang_code = voices[voice_index][0]
     file_path = os.path.join(uid_folder, f"{file_name}")
     generate_audio(
-        model=model,
+        model_path=model,
         text=text,
         voice=voice,
         speed=speed,
         lang_code=lang_code,
-        file_path=file_path,
+        file_prefix=file_path,
         audio_format="mp3"
     )
 
