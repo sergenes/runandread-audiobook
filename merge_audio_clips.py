@@ -45,11 +45,13 @@ def merge_audio_with_text(folder_path,
     # ✅ Use tqdm for progress bar
     with tqdm(total=total_files, desc="Merging Audio", unit="file") as progress_bar:
         while True:
-            audio_file = os.path.join(folder_path, f"{index}_000.{file_format}")
             text_file = os.path.join(folder_path, f"{index}.txt")
+            audio_file = os.path.join(folder_path, f"{index}_000.{file_format}")
+            if not os.path.exists(audio_file):
+                audio_file = os.path.join(folder_path, f"{index}.{file_format}")
 
             if not os.path.exists(audio_file):
-                # print(f"*****\nFile does not exist: {audio_file}")
+                print(f"*****\nFile does not exist: {audio_file}")
                 break  # Stop if no more audio files exist
 
             text = ""
