@@ -178,7 +178,7 @@ ffmpeg -loop 1 -i appGoogle.png -i merged_output.mp3 -vf "scale=1080:1080,format
 
 ```
 
-### **Step 6: Setup Rest Zyphra/Deepgram SDK**
+### **Step 6: Setup Rest Zyphra/Deepgram/OpenAI SDK**
 
 ```bash
 # Zyphra
@@ -190,6 +190,12 @@ python zyphra_api.py library/pg11.json
 # DeepGarm
 export DEEPGRAM_API_KEY="your-deepgram-api-key"
 python deepgram_api.py library/pg11.json
+```
+
+```bash
+# OpenAI MINI TTS
+export OPENAI_API_KEY="your-deepgram-api-key"
+python make_abook_open_ai.py library/pg11.json
 ```
 
 ### **Step 7: Setup MLX-AUDIO (cloned local repo)**
@@ -228,6 +234,7 @@ runandread-audiobook/
 ├── test_scan_next.py    # Unit tests to make sure text normalization works as expected
 ├── zyphra_api.py        # Converts text into audio files with Zyphra SDK/Rest API API
 ├── deepgram_api.py      # Converts text into audio files with Deepgram SDK/Rest API API
+├── make_abook_open_ai.py# Converts text into audio files with OpenAI TTS
 ├── assets/              # Stores MP3 files for voice cloning
 ├── epub/                # EPUB books from the Gutenberg Project
 ├── audio/               # Output audio files

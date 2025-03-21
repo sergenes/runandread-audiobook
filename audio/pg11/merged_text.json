@@ -1,18 +1,23 @@
-[
-    {
-        "start_time_ms": 0,
-        "text": "CHAPTER I. Down the Rabbit Hole. Alice was beginning to get very tired\nof sitting by her sister on the bank, and of having nothing to do once\nor twice she had peeped into the book her sister was reading, but it\nhad no pictures or conversations in it, and what is the use of a book,\nthought Alice without pictures or conversations? So she was\nconsidering in her own mind as well as she could, for the hot day made\nher feel very sleepy and stupid ,"
-    },
-    {
-        "start_time_ms": 19435,
-        "text": "whether the pleasure of making a daisy chain would be worth the\ntrouble of getting up and picking the daisies, when suddenly a White\nRabbit with pink eyes ran close by her. There was nothing\nsoveryremarkable in that nor did Alice think it soverymuch out of the\nway to hear the Rabbit say to itself, Oh dear! Oh dear! I shall be\nlate! when she thought it over afterwards, it occurred to her that she\nought to have wondered at this,"
-    },
-    {
-        "start_time_ms": 37268,
-        "text": "but at the time it all seemed quite natural but when the Rabbit\nactuallytook a watch out of its waistcoat pocket, and looked at it,\nand then hurried on, Alice started to her feet, for it flashed across\nher mind that she had never before seen a rabbit with either a\nwaistcoat pocket, or a watch to take out of it, and burning with\ncuriosity, she ran across the field after it, and fortunately was just\nin time to see it pop down a large rabbit hole under the hedge."
-    },
-    {
-        "start_time_ms": 57818,
-        "text": "In another moment down went Alice after it, never once considering how\nin the world she was to get out again. The rabbit hole went straight\non like a tunnel for some way, and then dipped suddenly down, so\nsuddenly that Alice had not a moment to think about stopping herself\nbefore she found herself falling down a very deep well. Either the\nwell was very deep, or she fell very slowly, for she had plenty of\ntime as she went down to look about her and to wonder what was going\nto happen next."
-    }
-]
+{
+    "title": "Alice's Adventures in Wonderland",
+    "author": "Lewis Carroll",
+    "language": "en_GB",
+    "rate": 1.0,
+    "voice": "George",
+    "model": "Kokoro-82M",
+    "book_source": "www.gutenberg.org",
+    "text": [
+        {
+            "start_time_ms": 0,
+            "text": "CHAPTER I. Down the Rabbit Hole. Alice was beginning to get very tired\nof sitting by her sister on the bank, and of having nothing to do once\nor twice she had peeped into the book her sister was reading, but it\nhad no pictures or conversations in it, and what is the use of a book,\nthought Alice without pictures or conversations? So she was\nconsidering in her own mind as well as she could, for the hot day made\nher feel very sleepy and stupid , whether the pleasure of making a\ndaisy chain would be worth the trouble of getting up and picking the\ndaisies, when suddenly a White Rabbit with pink eyes ran close by her.\nThere was nothing soveryremarkable in that nor did Alice think it\nsoverymuch out of the way to hear the Rabbit say to itself,"
+        },
+        {
+            "start_time_ms": 43368,
+            "text": "Oh dear! Oh dear! I shall be late! when she thought it over\nafterwards, it occurred to her that she ought to have wondered at\nthis, but at the time it all seemed quite natural but when the Rabbit\nactuallytook a watch out of its waistcoat pocket, and looked at it,\nand then hurried on, Alice started to her feet, for it flashed across\nher mind that she had never before seen a rabbit with either a\nwaistcoat pocket, or a watch to take out of it, and burning with\ncuriosity, she ran across the field after it, and fortunately was just\nin time to see it pop down a large rabbit hole under the hedge. In\nanother moment down went Alice after it, never once considering how in\nthe world she was to get out again."
+        },
+        {
+            "start_time_ms": 85224,
+            "text": "The rabbit hole went straight on like a tunnel for some way, and then\ndipped suddenly down, so suddenly that Alice had not a moment to think\nabout stopping herself before she found herself falling down a very\ndeep well. Either the well was very deep, or she fell very slowly, for\nshe had plenty of time as she went down to look about her and to\nwonder what was going to happen next. First, she tried to look down\nand make out what she was coming to, but it was too dark to see\nanything then she looked at the sides of the well, and noticed that\nthey were filled with cupboards and book shelves here and there she\nsaw maps and pictures hung upon pegs. She took down a jar from one of\nthe shelves as she passed it was labelled ORANGE MARMALADE ,"
+        }
+    ]
+}
