@@ -194,7 +194,7 @@ python deepgram_api.py library/pg11.json
 
 ```bash
 # OpenAI MINI TTS
-export OPENAI_API_KEY="your-deepgram-api-key"
+export OPENAI_API_KEY="your-open-api-key"
 python make_abook_open_ai.py library/pg11.json
 ```
 
