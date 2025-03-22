@@ -41,7 +41,27 @@ if __name__ == "__main__":
     sentences = [sentence.strip() for paragraph in data["text"] for sentence in split_into_sentences(paragraph) if
                  sentence.strip()]
     words = split_into_words(sentences)
+    available_voices = [
+        "alloy",
+        "ash",
+        "ballad",
+        "coral",
+        "echo",
+        "fable",
+        "onyx",
+        "nova",
+        "sage",
+        "shimmer",
+        "verse"
+    ]
 
+    instructions = """
+    Accent/Affect: Warm, refined, and gently instructive, reminiscent of a friendly art instructor.
+
+    Tone: Calm, encouraging, and articulate, clearly describing each step with patience.
+
+    Pacing: Slow and deliberate, pausing often to allow the listener to follow instructions comfortably.
+    """
 
     while next_window_index < 3:
         paragraph, next_word_index = scan_next(words, last_word_index, max_word_number)
@@ -53,8 +73,9 @@ if __name__ == "__main__":
         file_path = os.path.join(uid_folder, f"{next_window_index}.mp3")
         response = client.audio.speech.create(
             model="gpt-4o-mini-tts",
-            voice="alloy",
+            voice=available_voices[7],
             input=paragraph,
+            instructions=instructions,
         )
         response.stream_to_file(file_path)
         save_text(paragraph, next_window_index, uid_folder)
