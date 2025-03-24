@@ -5,15 +5,23 @@ from ebooklib import epub
 from bs4 import BeautifulSoup
 import json
 
+import re
+
 
 def clean_text(text):
-    """Cleans extracted text by removing unnecessary symbols and normalizing spaces."""
+    """Cleans extracted text by removing unnecessary symbols and normalizing spaces.
+       Supports Latin, Cyrillic, and other Unicode scripts.
+    """
     text = text.replace("\n", " ")  # Replace newlines with spaces
-    text = re.sub(r"[^a-zA-Z0-9.,!?'\"]+", " ", text)  # Keep only letters, numbers, and basic punctuation
+    text = re.sub(r"[^\w.,!?'\"’\u0400-\u04FF\u0370-\u03FF\u0600-\u06FF\u4E00-\u9FFF]+", " ", text, flags=re.UNICODE)
+    # Keep letters, numbers, and basic punctuation, allowing for Cyrillic, Greek, Arabic, and CJK characters
+
     text = re.sub(r"\s+", " ", text).strip()  # Normalize multiple spaces
+
     # Ensure the line ends with proper punctuation
-    if text and not re.search(r"[.!?]$", text):
+    if text and not re.search(r"[.!?]$", text, re.UNICODE):
         text += "."  # Add a period if missing
+
     return text
 
 
