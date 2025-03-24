@@ -55,15 +55,34 @@ if __name__ == "__main__":
         "verse"
     ]
 
+    # instructions = """
+    # Accent/Affect: Warm, refined, and gently instructive, reminiscent of a friendly art instructor.
+    #
+    # Tone: Calm, encouraging, and articulate, clearly describing each step with patience.
+    #
+    # Pacing: Slow and deliberate, pausing often to allow the listener to follow instructions comfortably.
+    # """
+
     instructions = """
-    Accent/Affect: Warm, refined, and gently instructive, reminiscent of a friendly art instructor.
+    Accent/Affect: Rich, expressive, and immersive, embodying the essence of each character and scene.  
+    The voice should shift naturally between characters, giving each a unique tone and cadence.  
 
-    Tone: Calm, encouraging, and articulate, clearly describing each step with patience.
+    Tone: Dynamic and emotionally resonant—soft and introspective for reflective moments,  
+    powerful and commanding for climactic scenes, and playful or mysterious where needed.  
+    The narration should feel alive, as if performed on stage.  
 
-    Pacing: Slow and deliberate, pausing often to allow the listener to follow instructions comfortably.
+    Pacing: Natural and engaging, adjusting rhythm to match the tension of the story.  
+    Dramatic pauses should be used to heighten suspense, while faster delivery conveys urgency or excitement.  
+    Dialogue should feel conversational, with realistic pauses and inflections.  
+
+    Additional Notes:  
+    - Whisper slightly for secrets and inner thoughts.  
+    - Laugh or sigh subtly when characters do.  
+    - Let emotions drive the reading—joy, sorrow, fear, and wonder should be palpable.  
+    - Ensure a seamless flow, making the audience feel as if they are inside the story.  
     """
 
-    while next_window_index < 3:
+    while next_window_index < 100:
         paragraph, next_word_index = scan_next(words, last_word_index, max_word_number)
 
         if next_word_index >= len(words):
