@@ -170,3 +170,13 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 /local
+/assets/exampleaudio_mariya.mp3
+/audio/MNKVps/
+/audio/splrmz/
+/audio/lra1/
+/audio/lra2/
+/audio/lra/
+/models/large/weights.npz
+/library/tolstoyvoynaimr1.json
+/library/splrmz.json
+/library/MNKVps.json

@@ -6,12 +6,14 @@ import zipfile
 import mlx_whisper
 from huggingface_hub import snapshot_download
 import json
+from datetime import datetime
 
 # Define model path
 model_path = "../models/large"
 
 
 # https://huggingface.co/mlx-community/whisper-large-v3-mlx
+# https://huggingface.co/mlx-community/whisper-tiny.en-mlx-q4
 
 
 def transcribe_mp3(folder_path, title, author, language, voice, granularity="paragraph"):
@@ -162,6 +164,8 @@ def parse_args():
 # Entry point for command-line execution
 if __name__ == "__main__":
     args = parse_args()
+    start_time = datetime.now()
+    print("Process started at:", start_time.strftime("%Y-%m-%d %H:%M:%S"))
     transcribe_mp3(
         folder_path=args.path,
         title=args.title,
@@ -170,3 +174,9 @@ if __name__ == "__main__":
         voice=args.voice,
         granularity=args.granularity
     )
+    end_time = datetime.now()
+    print("Process ended at:", end_time.strftime("%Y-%m-%d %H:%M:%S"))
+
+    # Optional: Print duration
+    duration = end_time - start_time
+    print("Total duration:", duration)

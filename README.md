@@ -1,4 +1,5 @@
-# RunAndRead-Audiobook
+# RunAndRead-Audiobook-Pipeline | [[RunAndRead-iOS]](https://github.com/answersolutionsapps/runandread-ios) | [[RunAndRead-Android]](https://github.com/answersolutionsapps/runandread-android)
+
 
 <div align="center">
 <img src="assets/ic_launcher.png" 
@@ -252,11 +253,6 @@ runandread-audiobook/
 ## 🤝 Contributions
 
 Contributions are welcome! Feel free to open an issue or submit a pull request.
-
----
-
-## 🛣️ Roadmap
-- 🎯 **Ultimate Goal:** On-device TTS model.
 
 ---
 
