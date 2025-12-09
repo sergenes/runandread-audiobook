@@ -20,7 +20,7 @@ The ultimate goal is to make **Run & Read**, the audiobook player app, sound mor
 Currently, it relies on the standard voices embedded in **Apple** and **Android** devices, which are still not perfect.
 Starting from Android v1.5 (6) and iOS v1.6 (18), Run & Read supports MP3 audiobooks generated using the RANDR pipeline in this repository. [See instructions here](https://github.com/sergenes/runandread-audiobook/blob/main/RANDR.md).
 
-**Download and try the apps for free!**  
+**Download and use the apps for free!**  
 
 🍏 **App Store**: [Ran & Read for Apple Devices](https://apps.apple.com/us/app/run-read-listen-on-the-go/id6741396289)  
 🤖 **Google Play**: [Ran & Read for Android](https://play.google.com/store/apps/details?id=com.answersolutions.runandread)
