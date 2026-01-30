@@ -8,24 +8,29 @@ from word_tokens_tools import split_into_words, scan_next, split_into_sentences,
 
 def process_text(text, file_name, uid_folder):
     """Processes text using the Kokoro model and saves it as an audio file."""
-
+    models = ["mlx-community/Qwen3-TTS-12Hz-0.6B-CustomVoice-8bit", "mlx-community/chatterbox-fp16", "mlx-community/Kokoro-82M-bf16"]
     voices = ["af_heart", "bm_george", "bf_emma", "bf_isabella", "af_bella", "am_liam"]
     voice_index = 1
     # Define parameters
     text = text
     speed = 1.1
-    model = "prince-canuma/Kokoro-82M"
-    voice = voices[voice_index]
-    lang_code = voices[voice_index][0]
-    file_path = os.path.join(uid_folder, f"{file_name}")
+    model = models[2]
+    voice =  voices[voice_index]
+    lang_code = "en"
+    file_prefix = str(file_name)
+    file_path = os.path.join(uid_folder, f"{file_prefix}.mp3")
+
     generate_audio(
-        model_path=model,
+        model=model,
         text=text,
         voice=voice,
         speed=speed,
         lang_code=lang_code,
-        file_prefix=file_path,
-        audio_format="mp3"
+        output_path=uid_folder,
+        file_prefix=file_prefix,
+        audio_format="mp3",
+        join_audio=True,
+        instruct="Happy and excited.",
     )
 
     print(f"✅ Saved: {file_path}")
