@@ -2,24 +2,37 @@ import os
 import sys
 import json
 
-from mlx_audio.tts.generate import generate_audio
+from mlx_audio.tts.generate import generate_audio, load_model
 from word_tokens_tools import split_into_words, scan_next, split_into_sentences, save_text
 
 
 def process_text(text, file_name, uid_folder):
-    """Processes text using the Kokoro model and saves it as an audio file."""
-    models = ["mlx-community/Qwen3-TTS-12Hz-0.6B-CustomVoice-8bit", "mlx-community/chatterbox-fp16", "mlx-community/Kokoro-82M-bf16"]
-    voices = ["af_heart", "bm_george", "bf_emma", "bf_isabella", "af_bella", "am_liam"]
-    voice_index = 1
+    """Processes text using the model and saves it as an audio file."""
+    TTS_MODELS = {
+        "qwen": {
+            "path": "mlx-community/Qwen3-TTS-12Hz-0.6B-CustomVoice-8bit",
+            "voices": ['serena', 'vivian', 'uncle_fu', 'ryan', 'aiden', 'ono_anna', 'sohee', 'eric', 'dylan']
+        },
+        "chatterbox": {
+            "path": "mlx-community/chatterbox-fp16",
+            "voices": ['sophia', 'james', 'lily', 'michael', 'emma', 'oliver', 'ava', 'charlie', 'amelia']
+        },
+        "kokoro": {
+            "path": "mlx-community/Kokoro-82M-bf16",
+            "voices": ["af_heart", "bm_george", "bf_emma", "bf_isabella", "af_bella", "am_liam"]
+        }
+    }
     # Define parameters
+    selected_model = "kokoro"
     text = text
     speed = 1.1
-    model = models[2]
-    voice =  voices[voice_index]
+    voice = TTS_MODELS[selected_model]["voices"][0]
     lang_code = "en"
     file_prefix = str(file_name)
     file_path = os.path.join(uid_folder, f"{file_prefix}.mp3")
-
+    model = load_model(
+        model_path=TTS_MODELS[selected_model]["path"]
+    )
     generate_audio(
         model=model,
         text=text,
@@ -30,7 +43,7 @@ def process_text(text, file_name, uid_folder):
         file_prefix=file_prefix,
         audio_format="mp3",
         join_audio=True,
-        instruct="Happy and excited.",
+        instruct="You are professional actor reading a book",
     )
 
     print(f"✅ Saved: {file_path}")
