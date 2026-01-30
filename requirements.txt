@@ -7,11 +7,10 @@ ffmpeg-python
 pydub
 soundfile
 pyaudio
-playsound
-json
-os
+playsound==1.2.2
 requests
 yt-dlp
 uv
 deepgram-sdk
 zyphra
+-e /Users/sergenes/projects/voice/mlx-audio
