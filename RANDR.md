@@ -10,20 +10,19 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
 **RunAndRead-Audiobook** is an open-source pipeline for creating high-quality audiobooks using **open-source AI models**. It leverages **MLX-AUDIO** and **make_abook_mlx.py** to generate **RANDR format audiobooks**, which can be played in the **Run & Read** app for Android and iOS.
 
-📌 **Ensure your app version supports RANDR format:**
+**Ensure your app version supports RANDR format:**
 - **Android**: Version **1.5 (6)** or later.
 - **iOS**: Version **1.6 (18)** or later.
 
-**Download and try the apps for free!**  
-🍏 **App Store**: [Ran & Read for Apple Devices](https://apps.apple.com/us/app/run-read-listen-on-the-go/id6741396289)  
-🤖 **Google Play**: [Ran & Read for Android](https://play.google.com/store/apps/details?id=com.answersolutions.runandread)
+**Apps**  
+**App Store**: [Run & Read for Apple Devices](https://apps.apple.com/us/app/run-read-listen-on-the-go/id6741396289)  
+**Google Play**: [Run & Read for Android](https://play.google.com/store/apps/details?id=com.answersolutions.runandread)
 
-
-📱 **Scan QR Codes to Download:**
+**QR codes**
 
 <div align="center">
 <img src="assets/apple_runandread_qr_code.png" width="150px"> &nbsp;&nbsp;&nbsp; <img src="assets/google_runandread_qr_code.png" width="150px">
@@ -31,19 +30,19 @@
 
 ---
 
-## 🚀 Features
+## Features
 
-✅ Convert **EPUB** to **JSON** for structured text extraction.  
-✅ **Manually verify** extracted text to remove unwanted sections.  
-✅ Generate high-quality **TTS audio** using **MLX-AUDIO (Kokoro-82M TTS model)**.  
-✅ **Merge** audio clips into a single audiobook file.  
-✅ Package audio + JSON into **RANDR format** for seamless playback.  
-✅ Compatible with **Run & Read** apps on **iOS & Android**.  
-✅ Optimized for **Apple Silicon (M-series processors)**.  
+- Convert **EPUB** to **JSON** for structured text extraction.
+- Manually verify extracted text to remove unwanted sections.
+- Generate TTS audio using **MLX-AUDIO (Kokoro-82M TTS model)**.
+- Merge audio clips into a single audiobook file.
+- Package audio and JSON into **RANDR format** for playback.
+- Compatible with **Run & Read** apps on **iOS** and **Android**.
+- Optimized for **Apple Silicon (M-series processors)**.
 
 ---
 
-## 📦 Dependencies
+## Dependencies
 
 - **Python 3.9+**
 - **[MLX-AUDIO](https://github.com/Blaizzy/mlx-audio)** (TTS framework optimized for macOS/Apple M-series chips)
@@ -52,9 +51,9 @@
 
 ---
 
-## 🛠 Installation
+## Installation
 
-### **1️⃣ Set Up MLX-AUDIO**
+### **1) Set Up MLX-AUDIO**
 ```bash
 pip install -e ~/projects/voice/mlx-audio
 ```
@@ -65,7 +64,7 @@ echo 'export ESPEAK_DATA_PATH=/opt/homebrew/share/espeak-ng-data' >> ~/.zshrc
 source ~/.zshrc
 ```
 
-### **2️⃣ Set Up ffmpeg**
+### **2) Set Up ffmpeg**
 
 - **macOS**: `brew install ffmpeg`
 - **Ubuntu**: `sudo apt install ffmpeg`
@@ -73,7 +72,7 @@ source ~/.zshrc
 
 ---
 
-## 📚 Pipeline Workflow
+## Pipeline Workflow
 
 ### **Step 1: Convert EPUB to JSON**
 ```bash
@@ -110,7 +109,21 @@ python make_randr.py audio/book/
 
 ---
 
-## 📂 Project Structure
+## Pipeline Schema
+
+```mermaid
+flowchart LR
+    A[EPUB] --> B[epub_to_json.py]
+    B --> C[JSON book]
+    C --> D[make_abook_mlx.py]
+    D --> E[Audio clips]
+    E --> F[merge_audio_clips.py]
+    F --> G[make_randr.py]
+    C --> G
+    G --> H[RANDR file]
+```
+
+## Project Structure
 
 ```
 runandread-audiobook/
@@ -122,7 +135,7 @@ runandread-audiobook/
 ├── epub/                # EPUB source files
 ├── audio/               # Generated audio files
 ├── library/             # JSON book structure
-├── audiobooks/          # RAND audiobooks samples
+├── audiobooks/          # RANDR audiobooks samples
      ├── pg2680.randr    # Meditations by Emperor of Rome Marcus Aurelius
      ├── pg20203.randr   # Autobiography of Benjamin Franklin
 ├── README.md            # Documentation
@@ -131,13 +144,13 @@ runandread-audiobook/
 
 ---
 
-## 🤝 Contributions
+## Contributions
 
 We welcome contributions! Open an **issue** or submit a **pull request**.
 
 ---
 
-## 📜 References
+## References
 
 - **[MLX-AUDIO](https://github.com/Blaizzy/mlx-audio)** - TTS & STS library optimized for Apple M-series.
 - **[Kokoro-TTS](https://huggingface.co/spaces/hexgrad/Kokoro-TTS)** - Open-weight TTS model.
@@ -146,12 +159,12 @@ We welcome contributions! Open an **issue** or submit a **pull request**.
 
 ---
 
-## 📞 Contact
+## Contact
 
 - **[Sergey N](https://www.linkedin.com/in/sergey-neskoromny/)**
 
 ---
 
-## 📄 License
+## License
 
 This project is open-source under the **MIT License**.

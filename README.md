@@ -11,7 +11,7 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
 RunAndRead-Audiobook is an open-source project aimed at generating high-quality text-to-speech (TTS) audiobooks using
 open-source models like **Zyphra/Zonos**.
@@ -20,54 +20,52 @@ The ultimate goal is to make **Run & Read**, the audiobook player app, sound mor
 Currently, it relies on the standard voices embedded in **Apple** and **Android** devices, which are still not perfect.
 Starting from Android v1.5 (6) and iOS v1.6 (18), Run & Read supports MP3 audiobooks generated using the RANDR pipeline in this repository. [See instructions here](https://github.com/sergenes/runandread-audiobook/blob/main/RANDR.md).
 
-**Download and use the apps for free!**  
+**Apps**
 
-🍏 **App Store**: [Ran & Read for Apple Devices](https://apps.apple.com/us/app/run-read-listen-on-the-go/id6741396289)  
-🤖 **Google Play**: [Ran & Read for Android](https://play.google.com/store/apps/details?id=com.answersolutions.runandread)
+**App Store**: [Run & Read for Apple Devices](https://apps.apple.com/us/app/run-read-listen-on-the-go/id6741396289)  
+**Google Play**: [Run & Read for Android](https://play.google.com/store/apps/details?id=com.answersolutions.runandread)
 
-
-📱 **Scan QR Codes to Download:**
+**QR codes**
 
 <div align="center">
 <img src="assets/apple_runandread_qr_code.png" width="150px"> &nbsp;&nbsp;&nbsp; <img src="assets/google_runandread_qr_code.png" width="150px">
 </div>
 ---
 
-## 📢 New: Create Audiobooks with AI (RANDR Format)
+## Create Audiobooks with AI (RANDR format)
 
 Generate **high-quality audiobooks** at home using open-source AI models! We’ve built a **pipeline** using **MLX-AUDIO** to create audiobooks in the **RANDR format**, optimized for playback in the **Run & Read** app.
 
-📖 **[Dedicated document with step-by-step instructions](https://github.com/sergenes/runandread-audiobook/blob/main/RANDR.md)**
+**[Dedicated document with step-by-step instructions](https://github.com/sergenes/runandread-audiobook/blob/main/RANDR.md)**
 
-## 🚀 Features
-✅ A fully functional pipeline for generating audiobooks compatible with the Run & Read app.
+## Features
+- Pipeline for generating audiobooks compatible with the Run & Read app.
+- Convert EPUB to JSON for text extraction.
+- Generate audio using **Zonos TTS** or **Kokoro-TTS** (AUDIO-MLX).
+- Clone voices from an MP3 sample.
+- Play audio clips sequentially while displaying text in the terminal.
+- Merge audio clips into one file.
+- Zyphra and Deepgram API support for cloud-based TTS.
+- Wrap produced audio and JSON files into a ZIP readable by the Run & Read app.
+- Transfer audio files to a mobile phone and play them in the Run & Read app.
+
+**Planned**
+- Estimate local vs. cloud generation cost.
+- On-device TTS for Android/iOS.
+
 ---
-✅ Convert EPUB to JSON for text extraction.\
-✅ Generate audio files using **Zonos TTS model**.\
-✅ Generate audio files using **Kokoro-TTS** by **AUDIO-MLX**.\
-✅ Clone voices from provided MP3 sample.\
-✅ Play audio clips sequentially while displaying text in the terminal.\
-✅ Merge audio clips into one file.\
-✅ Zyphra API support for cloud-based TTS.\
-✅ Deepgram API support for cloud-based TTS.\
-✅ Wrap produced audio and json files into zip file readable by Run & Read App.\
-✅ Transfer audio files to a mobile phone and play them in the Run & Read App.
-🔜 Calculate the Self-Cost of Complete Book Generation: Cloud vs. Local.\
-🔜 On-device TTS model for **mobile apps** (Android/iOS).
 
----
-
-## 🎧 Audio Samples
+## Audio Samples
 
 Here are some audiobook samples generated using RunAndRead-Audiobook with **Zonos TTS voice cloning**:
 
 [[Sample 1 - *Alice in Wonderland*]](https://www.youtube.com/shorts/cy8pdPn7gNk)
 
-📌 You can find examples under the **audio/pg11/** folder, and generate your own samples using the steps outlined in the **Usage** section below.
+You can find examples under the **audio/pg11/** folder, and generate your own samples using the steps outlined in the **Usage** section below.
 
 ---
 
-## 📦 Dependencies & Technologies
+## Dependencies & Technologies
 
 - **Python 3.9+**
 - **[Zyphra/Zonos](https://github.com/Zyphra/Zonos)** (open-source TTS engine)
@@ -78,15 +76,15 @@ Here are some audiobook samples generated using RunAndRead-Audiobook with **Zono
 
 ---
 
-## 🛠 Installation
+## Installation
 
-### **1️⃣ Install Python Dependencies**
+### **1) Install Python Dependencies**
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### **2️⃣ Set Up Zyphra/Zonos**
+### **2) Set Up Zyphra/Zonos**
 
 Follow the official installation instructions from [Zyphra/Zonos](https://github.com/Zyphra/Zonos). Using a `uv` virtual
 environment is recommended for running RunAndRead scripts. After installing the Zonos project, run the `sample.py`
@@ -99,13 +97,13 @@ uv run sample.py
 This will download the **"Zyphra/Zonos-v0.1-transformer"** base model from Hugging Face and store it in your
 environment.
 
-### **3️⃣ Set Up ffmpeg**
+### **3) Set Up ffmpeg**
 
 - **macOS**: `brew install ffmpeg`
 - **Ubuntu**: `sudo apt install ffmpeg`
 - **Windows**: [Download from ffmpeg.org](https://ffmpeg.org/download.html) and add to system PATH.
 
-### **4️⃣ Download a Voice Sample from YouTube**
+### **4) Download a Voice Sample from YouTube**
 
 To train a **Zonos voice clone**, you'll need an MP3 sample of the speaker. A **10-20 minute video** with a single
 speaker (e.g., a tutorial or audiobook) is recommended. You can download an MP3 track from YouTube using `yt-dlp`:
@@ -118,7 +116,7 @@ This `exampleaudio.mp3` file will be used by the Zonos model to fine-tune the vo
 
 ---
 
-## 📚 Usage
+## Usage
 
 ### **Step 1: Convert EPUB to JSON**
 
@@ -139,7 +137,7 @@ This ensures that the book starts from the correct position, e.g.:
 
 > **10: CHAPTER I. Down the Rabbit-Hole**
 
-🚨 **Note**: Without an NVIDIA GPU, converting an entire book to audio takes a long time. A **30-second** audio clip
+**Note**: Without an NVIDIA GPU, converting an entire book to audio takes a long time. A **30-second** audio clip
 takes approximately **3 minutes** to generate on macbook pro, m1. A full book can take **dozens of hours**. For example,
 *Alice’s Adventures in Wonderland* is **3 hours long**, meaning **18 hours of processing** on a MacBook Pro with an M1
 processor. **However, the `make_abook` script can be interrupted at any time, and it will resume from the position where
@@ -179,7 +177,7 @@ ffmpeg -loop 1 -i appGoogle.png -i merged_output.mp3 -vf "scale=1080:1080,format
 
 ```
 
-### **Step 6: Setup Rest Zyphra/Deepgram/OpenAI SDK**
+### **Step 6: Set up REST Zyphra/Deepgram/OpenAI SDK**
 
 ```bash
 # Zyphra
@@ -188,7 +186,7 @@ python zyphra_api.py library/pg11.json
 ```
 
 ```bash
-# DeepGarm
+# Deepgram
 export DEEPGRAM_API_KEY="your-deepgram-api-key"
 python deepgram_api.py library/pg11.json
 ```
@@ -199,13 +197,13 @@ export OPENAI_API_KEY="your-open-api-key"
 python make_abook_open_ai.py library/pg11.json
 ```
 
-### **Step 7: Setup MLX-AUDIO (cloned local repo)**
+### **Step 7: Set up MLX-AUDIO (cloned local repo)**
 
 ```bash
 pip install -e ~/projects/voice/mlx-audio
 ```
 ---
-🚨 **Note**: Kokoro-82M TTS model skips names and other out-of-dictionary (OOD) words due to its reliance on an external grapheme-to-phoneme (g2p) conversion tool called espeak-ng2. This behavior occurs when espeak-ng is not properly installed or detected by the system.
+**Note**: Kokoro-82M TTS model skips names and other out-of-dictionary (OOD) words due to its reliance on an external grapheme-to-phoneme (g2p) conversion tool called espeak-ng2. This behavior occurs when espeak-ng is not properly installed or detected by the system.
 To prevent Kokoro-82M from skipping names and OOD words, you need to install `espeak-ng`
 
 ```bash
@@ -221,7 +219,22 @@ python make_abook_mlx.py library/pg2680.json
 python make_randr.py audio/pg20203/
 ```
 
-## 📂 Project Structure
+## Pipeline Schema
+
+```mermaid
+flowchart LR
+    A[EPUB] --> B[epub_to_json.py]
+    B --> C[JSON book]
+    C --> D[make_abook.py / make_abook_mlx.py / make_abook_open_ai.py / zyphra_api.py / deepgram_api.py]
+    D --> E[Audio clips]
+    E --> F[play_audio.py]
+    E --> G[merge_audio_clips.py]
+    C --> H[make_randr.py]
+    E --> H
+    H --> I[RANDR zip]
+```
+
+## Project Structure
 
 ```
 runandread-audiobook/
@@ -239,7 +252,7 @@ runandread-audiobook/
 ├── assets/              # Stores MP3 files for voice cloning
 ├── epub/                # EPUB books from the Gutenberg Project
 ├── audio/               # Output audio files
-├── audiobooks/          # RAND audiobooks samples
+├── audiobooks/          # RANDR audiobooks samples
      ├── pg2680.randr    # Meditations by Emperor of Rome Marcus Aurelius
      ├── pg20203.randr   # Autobiography of Benjamin Franklin
 ├── library/             # Output JSON book files
@@ -250,18 +263,18 @@ runandread-audiobook/
 
 ---
 
-## 🤝 Contributions
+## Contributions
 
 Contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ---
 
-## 📜 References & Kudos
+## References & Kudos
 
 - **[Zonos](https://github.com/Zyphra/Zonos)** - Open-source TTS model.
 - **[AUDIO-MLX](https://github.com/Blaizzy/mlx-audio)** - A TTS and STS library built on Apple's MLX framework.
 - **[Kokoro-TTS](https://huggingface.co/spaces/hexgrad/Kokoro-TTS)** - An open-weight TTS model with 82 million parameters.
-- **[Deepgram](https://deepgram.com/)** - Commercial cloud-based TTS (future integration).
+- **[Deepgram](https://deepgram.com/)** - Commercial cloud-based TTS.
 - **[EbookLib](https://pypi.org/project/EbookLib/)** - EPUB parsing in Python.
 - **[yt-dlp](https://github.com/yt-dlp/yt-dlp)** - YouTube audio downloader for voice cloning.
 - **[Gutenberg Project](https://www.gutenberg.org)** - A library of over 75,000 free eBooks.
@@ -270,12 +283,12 @@ Contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ---
 
-## 📞 Contact
+## Contact
 
 - **[Sergey N](https://www.linkedin.com/in/sergey-neskoromny/)** - Connect and follow me on LinkedIn.
 
 ---
 
-## 📄 License
+## License
 
 This project is open-source and available under the **MIT License**.
