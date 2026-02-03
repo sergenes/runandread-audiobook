@@ -1,4 +1,12 @@
-# RunAndRead-Audiobook-Pipeline | [[RunAndRead-iOS]](https://github.com/answersolutionsapps/runandread-ios) | [[RunAndRead-Android]](https://github.com/answersolutionsapps/runandread-android)
+# RunAndRead-Audiobook-Pipeline
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey.svg)](https://github.com/sergenes/runandread-audiobook)
+[![MLX](https://img.shields.io/badge/MLX-Audio-orange.svg)](https://github.com/ml-explore/mlx)
+[![TTS](https://img.shields.io/badge/TTS-Zonos%20%7C%20Kokoro%20%7C%20OpenAI%20%7C%20ElevenLabs-green.svg)](https://github.com/Zyphra/Zonos)
+
+**Related Projects:** [[RunAndRead-iOS]](https://github.com/answersolutionsapps/runandread-ios) | [[RunAndRead-Android]](https://github.com/answersolutionsapps/runandread-android)
 
 
 <div align="center">
