@@ -6,7 +6,7 @@
 [![MLX](https://img.shields.io/badge/MLX-Audio-orange.svg)](https://github.com/ml-explore/mlx)
 [![TTS](https://img.shields.io/badge/TTS-Zonos%20%7C%20Kokoro%20%7C%20OpenAI%20%7C%20ElevenLabs-green.svg)](https://github.com/Zyphra/Zonos)
 
-**Related Projects:** [[RunAndRead-iOS]](https://github.com/answersolutionsapps/runandread-ios) | [[RunAndRead-Android]](https://github.com/answersolutionsapps/runandread-android)
+**Related Projects:** [Run&Read Studio](https://github.com/sergenes/runandread-studio) |  [[RunAndRead-iOS]](https://github.com/answersolutionsapps/runandread-ios) | [[RunAndRead-Android]](https://github.com/answersolutionsapps/runandread-android)
 
 
 <div align="center">
