@@ -48,11 +48,11 @@ if __name__ == "__main__":
         model="aura-asteria-en",
     )
     while next_window_index < 3:
-        paragraph, next_word_index = scan_next(words, last_word_index, max_word_number)
-
-        if next_word_index >= len(words):
+        if last_word_index >= len(words):
             print(f"🎉 Finished processing {path_to_json}")
             break
+
+        paragraph, next_word_index = scan_next(words, last_word_index, max_word_number)
 
         file_path = os.path.join(uid_folder, f"{next_window_index}.mp3")
         options = SpeakOptions(
