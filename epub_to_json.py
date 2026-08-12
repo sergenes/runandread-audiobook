@@ -119,4 +119,9 @@ if __name__ == "__main__":
         with open(output_json, "w", encoding="utf-8") as f:
             f.write(json_out)
 
-    print(f"✅ Successfully converted '{epub_path}' to '{output_json}'")
+        print(f"✅ Successfully converted '{epub_path}' to '{output_json}'")
+    else:
+        print(f"ℹ️  Preview only - no file written (skip_lines was {skip}).")
+        print("Check the numbered sections above, find where the real content starts, "
+              "then rerun with that number as the third argument, e.g.:")
+        print(f"  python epub_to_json.py {epub_path} {output_json} 10")
