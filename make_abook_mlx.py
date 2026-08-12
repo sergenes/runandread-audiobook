@@ -82,11 +82,11 @@ if __name__ == "__main__":
                  sentence.strip()]
     words = split_into_words(sentences)
     while True:
-        paragraph, next_word_index = scan_next(words, last_word_index, max_word_number)
-
-        if next_word_index >= len(words):
+        if last_word_index >= len(words):
             print(f"🎉 Finished processing {path_to_json}")
             break
+
+        paragraph, next_word_index = scan_next(words, last_word_index, max_word_number)
 
         process_text(paragraph, next_window_index, uid_folder)
         save_text(paragraph, next_window_index, uid_folder)
