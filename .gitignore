@@ -183,3 +183,9 @@ cython_debug/
 /library/Mevill_Vokzal-poteryannyh-snov.fb2.json
 /epub/Mevill_Vokzal-poteryannyh-snov.fb2.epub
 /audio/Mevill_Vokzal-poteryannyh-snov.fb2/
+/audio/pg11/0.mp3
+/audio/pg11/0.txt
+/audio/pg11/1.mp3
+/audio/pg11/1.txt
+/audio/pg11/last_index.txt
+/qwen3_tts/test.mp3
