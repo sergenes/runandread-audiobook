@@ -172,6 +172,15 @@ python play_audio.py audio/pg11 mp3
 python merge_audio_clips.py library/pg11.json audio/pg11 mp3
 ```
 
+For long books, pass an optional max minutes per part to split the output into
+multiple files (e.g. `merged_output_part1.mp3`, `merged_output_part2.mp3`, ...)
+instead of one multi-GB file:
+
+```bash
+# Split into ~3-hour parts
+python merge_audio_clips.py library/pg11.json audio/pg11 mp3 180
+```
+
 ### **Step 5: Prepare audio clip for YouTube/LinkedIn**
 
 ```bash
