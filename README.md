@@ -148,6 +148,18 @@ This ensures that the book starts from the correct position, e.g.:
 
 > **10: CHAPTER I. Down the Rabbit-Hole**
 
+Add `--split-sentences` to split each paragraph into individual sentence/clause chunks
+(on `. ! ? : ;`) instead of one JSON entry per paragraph. Small local TTS models
+(Kokoro, Qwen3-TTS, etc.) generate more reliably on short, single-sentence chunks than
+on long multi-sentence paragraphs:
+
+```bash
+python epub_to_json.py epub/pg11.epub library/pg11.json 10 --split-sentences
+```
+
+The `make_abook*.py` scripts detect this automatically from the JSON and generate one
+audio clip per sentence instead of grouping multiple sentences into a word-count window.
+
 **Note**: Without an NVIDIA GPU, converting an entire book to audio takes a long time. A **30-second** audio clip
 takes approximately **3 minutes** to generate on macbook pro, m1. A full book can take **dozens of hours**. For example,
 *Alice’s Adventures in Wonderland* is **3 hours long**, meaning **18 hours of processing** on a MacBook Pro with an M1

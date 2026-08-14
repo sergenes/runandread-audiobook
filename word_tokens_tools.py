@@ -47,6 +47,35 @@ def scan_next(words, next_word_index, max_word_number, lookahead_limit=50):
     return " ".join(paragraph), current_word_index
 
 
+def build_chunk_list(data):
+    """
+    Returns (chunks, sentence_mode) for a parsed book JSON.
+
+    If the book was produced with epub_to_json.py's --split-sentences flag
+    (data["split_by_sentence"]), each "text" entry is already a single
+    sentence/clause, so chunks is that list verbatim and sentence_mode is
+    True — callers should use each entry as one TTS chunk directly, with no
+    further merging.
+
+    Otherwise chunks is the flattened word list (sentence_mode is False), and
+    callers must group it into chunks themselves via scan_next(), exactly as
+    before this function existed.
+    """
+    if data.get("split_by_sentence"):
+        return [text.strip() for text in data["text"] if text.strip()], True
+
+    sentences = [sentence.strip() for paragraph in data["text"] for sentence in split_into_sentences(paragraph) if
+                 sentence.strip()]
+    return split_into_words(sentences), False
+
+
+def next_chunk(chunks, sentence_mode, index, max_word_number):
+    """Returns (chunk_text, next_index) for the chunk starting at index."""
+    if sentence_mode:
+        return chunks[index], index + 1
+    return scan_next(chunks, index, max_word_number)
+
+
 def save_text(content, file_name, uid_folder):
     """Saves text content to a file."""
     with open(os.path.join(uid_folder, f"{file_name}.txt"), "w", encoding="utf-8") as f:

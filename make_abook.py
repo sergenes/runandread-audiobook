@@ -8,7 +8,7 @@ from zonos.model import Zonos
 from zonos.conditioning import make_cond_dict
 from zonos.utils import DEFAULT_DEVICE as device
 
-from word_tokens_tools import split_into_words, scan_next, split_into_sentences, save_text
+from word_tokens_tools import build_chunk_list, next_chunk, save_text
 
 
 def initialize_model(training_sample="assets/exampleaudio.mp3"):
@@ -89,15 +89,13 @@ if __name__ == "__main__":
     audio_prefix_codes = load_audio_prefix()
 
     max_word_number = 70
-    sentences = [sentence.strip() for paragraph in data["text"] for sentence in split_into_sentences(paragraph) if
-                 sentence.strip()]
-    words = split_into_words(sentences)
+    chunks, sentence_mode = build_chunk_list(data)
     while True:
-        if last_word_index >= len(words):
+        if last_word_index >= len(chunks):
             print(f"🎉 Finished processing {path_to_json}")
             break
 
-        paragraph, next_word_index = scan_next(words, last_word_index, max_word_number)
+        paragraph, next_word_index = next_chunk(chunks, sentence_mode, last_word_index, max_word_number)
 
         process_text(model, speaker, paragraph, next_window_index, uid_folder)
         save_text(paragraph, next_window_index, uid_folder)
