@@ -2,6 +2,17 @@
 
 All notable changes to RunAndRead-Audiobook are documented here.
 
+## 2026-08-15
+
+### Added
+- **`epub_to_json.py --split-sentences`**: splits each paragraph into individual sentence/clause chunks (on `. ! ? : ;`) before saving, instead of one JSON entry per paragraph. Small local TTS models generate more reliably on short, single-sentence input than on long multi-sentence paragraphs. `make_abook*.py` scripts detect this automatically from the new `split_by_sentence` JSON field (`word_tokens_tools.build_chunk_list()`/`next_chunk()`) and synthesize one clip per sentence instead of re-merging everything into word-count windows - falls back to the original word-window behavior byte-for-byte when the flag is absent, so existing resume checkpoints stay valid.
+- **`merge_audio_clips.py` multi-part output**: pass a max-minutes-per-part argument to split a long book's merged audio into several `merged_output_partN.<format>` / `merged_text_partN.json` files instead of one multi-GB one. `make_randr.py` now packages each part into its own `.randr` file automatically.
+- **Qwen3-TTS sampling/consistency controls**: `--temperature`, `--top-p`, `--top-k`, `--repetition-penalty`, `--seed` exposed on both `make_abook_qwen3.py` and `qwen3_tts/cli.py` (defaults tightened to `temperature=0.6, top_p=0.85` for more consistent narration - see [Sampling & consistency](qwen3_tts/README.md#sampling--consistency)). The RNG is now seeded once per run instead of before every clip, and `make_abook_qwen3.py` persists the seed to `audio/<book>/qwen3_seed.txt` so an interrupted multi-hour/multi-day conversion resumes on the same seed rather than drifting to a new one partway through.
+
+### Fixed
+- **`merge_audio_clips.py` crashed (`struct.error`) on long audiobooks.** It loaded every clip into one in-memory pydub `AudioSegment` and exported it; pydub's `export()` always serializes to a WAV container first (32-bit size field, ~4GB raw-PCM limit) even when the target format is mp3, so a long enough book overflowed it partway through the merge. Rewrote the merge to stream clips through ffmpeg's concat demuxer (stream copy) instead, which has no such limit and is significantly faster.
+- **`epub_to_json.py`'s `clean_text()` was silently stripping `:`, `;`, and dashes to spaces**, discarding punctuation that matters for both TTS prosody and the new sentence-splitting feature.
+
 ## 2026-08-12
 
 ### Added

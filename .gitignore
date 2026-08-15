@@ -189,3 +189,4 @@ cython_debug/
 /audio/pg11/1.txt
 /audio/pg11/last_index.txt
 /qwen3_tts/test.mp3
+/audiobooks/local/*

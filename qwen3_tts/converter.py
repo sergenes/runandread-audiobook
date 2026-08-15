@@ -14,7 +14,7 @@ require, any other RunAndRead-Audiobook file.
 from __future__ import annotations
 
 import os
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import mlx.core as mx
@@ -97,6 +97,18 @@ MIN_SANITY_SECONDS = 5.0    # flat slack so short chunks aren't flagged unfairly
 # rather than only on failure.
 DEFAULT_RELOAD_EVERY = 10  # reload after this many raw generation calls (attempts count, not just successes)
 
+# CustomVoice pitch, pacing, and energy are themselves autoregressively
+# sampled tokens, not fixed per speaker - so mlx-audio's defaults
+# (temperature=0.9, top_p=1.0) let two calls with the identical voice and
+# instruct land on audibly different "performances" (pitch contour, pace,
+# energy). That reads as random drift between chunks in a book-length run.
+# Tightening sampling here trades a little spontaneity for a narrator that
+# reads consistently from chunk to chunk.
+DEFAULT_TEMPERATURE = 0.6
+DEFAULT_TOP_P = 0.85
+DEFAULT_TOP_K = 50
+DEFAULT_REPETITION_PENALTY = 1.05
+
 
 class Qwen3TTSConverter:
     """Loads a Qwen3-TTS MLX model once, then generates narration audio from text."""
@@ -109,6 +121,11 @@ class Qwen3TTSConverter:
         instruct: str = DEFAULT_INSTRUCT,
         max_tokens: int = DEFAULT_MAX_TOKENS,
         reload_every: int = DEFAULT_RELOAD_EVERY,
+        temperature: float = DEFAULT_TEMPERATURE,
+        top_p: float = DEFAULT_TOP_P,
+        top_k: int = DEFAULT_TOP_K,
+        repetition_penalty: float = DEFAULT_REPETITION_PENALTY,
+        seed: Optional[int] = None,
     ):
         if model not in MODELS:
             raise ValueError(f"Unknown model '{model}'. Choices: {sorted(MODELS)}")
@@ -121,6 +138,17 @@ class Qwen3TTSConverter:
         self.instruct = instruct
         self.max_tokens = max_tokens
         self.reload_every = reload_every
+        self.temperature = temperature
+        self.top_p = top_p
+        self.top_k = top_k
+        self.repetition_penalty = repetition_penalty
+        # Seeded once (see generate()) rather than per-call, so a whole book
+        # draws from one continuous, reproducible RNG stream instead of each
+        # chunk landing on an unrelated random draw. None picks a fresh
+        # random base seed at first use; pass an explicit int to reproduce a
+        # prior run exactly.
+        self.seed = seed
+        self._seeded = False
         self._model = None
         self._calls_since_load = 0
 
@@ -159,17 +187,27 @@ class Qwen3TTSConverter:
                 self._load()
             self._calls_since_load += 1
 
-            # Force a genuinely fresh random draw each attempt, so a retry
-            # can't land on the same (or a correlated) sample as a prior
-            # failed attempt regardless of whatever global RNG state
-            # generation left behind.
-            mx.random.seed(int.from_bytes(os.urandom(4), "big"))
+            if not self._seeded:
+                if self.seed is None:
+                    self.seed = int.from_bytes(os.urandom(4), "big")
+                mx.random.seed(self.seed)
+                self._seeded = True
+                print(f"[qwen3_tts] RNG seed: {self.seed} (fixed for this run)")
+            elif attempt > 1:
+                # Retry after a runaway decode: force a genuinely fresh,
+                # uncorrelated draw so we don't just repeat the same failure.
+                mx.random.seed(int.from_bytes(os.urandom(4), "big"))
+
             results = list(self.model.generate_custom_voice(
                 text=text,
                 speaker=self.voice,
                 language=self.language,
                 instruct=self.instruct,
                 max_tokens=self.max_tokens,
+                temperature=self.temperature,
+                top_p=self.top_p,
+                top_k=self.top_k,
+                repetition_penalty=self.repetition_penalty,
             ))
             if not results:
                 raise RuntimeError("Qwen3-TTS returned no audio")

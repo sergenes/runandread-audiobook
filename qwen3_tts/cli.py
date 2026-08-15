@@ -19,6 +19,7 @@ try:
         Qwen3TTSConverter, MODELS, VOICES, LANGUAGES, INSTRUCT_PRESETS,
         DEFAULT_MODEL, DEFAULT_VOICE, DEFAULT_LANGUAGE, DEFAULT_INSTRUCT_PRESET,
         DEFAULT_MAX_TOKENS, DEFAULT_RELOAD_EVERY,
+        DEFAULT_TEMPERATURE, DEFAULT_TOP_P, DEFAULT_TOP_K, DEFAULT_REPETITION_PENALTY,
     )
 except ImportError:
     # Allows running directly as `python cli.py` (no package context)
@@ -26,6 +27,7 @@ except ImportError:
         Qwen3TTSConverter, MODELS, VOICES, LANGUAGES, INSTRUCT_PRESETS,
         DEFAULT_MODEL, DEFAULT_VOICE, DEFAULT_LANGUAGE, DEFAULT_INSTRUCT_PRESET,
         DEFAULT_MAX_TOKENS, DEFAULT_RELOAD_EVERY,
+        DEFAULT_TEMPERATURE, DEFAULT_TOP_P, DEFAULT_TOP_K, DEFAULT_REPETITION_PENALTY,
     )
 
 
@@ -47,6 +49,17 @@ def main():
     parser.add_argument("--reload-every", type=int, default=DEFAULT_RELOAD_EVERY,
                          help=f"Reload the model after this many generations, to counter long-run decode "
                               f"drift (default: {DEFAULT_RELOAD_EVERY}; 0 disables)")
+    parser.add_argument("--temperature", type=float, default=DEFAULT_TEMPERATURE,
+                         help=f"Sampling temperature - lower is more consistent/less expressive across "
+                              f"clips, higher is more varied (default: {DEFAULT_TEMPERATURE})")
+    parser.add_argument("--top-p", type=float, default=DEFAULT_TOP_P,
+                         help=f"Nucleus sampling threshold (default: {DEFAULT_TOP_P})")
+    parser.add_argument("--top-k", type=int, default=DEFAULT_TOP_K,
+                         help=f"Top-k sampling (default: {DEFAULT_TOP_K})")
+    parser.add_argument("--repetition-penalty", type=float, default=DEFAULT_REPETITION_PENALTY,
+                         help=f"Repetition penalty (default: {DEFAULT_REPETITION_PENALTY})")
+    parser.add_argument("--seed", type=int, default=None,
+                         help="Fixed RNG seed, for reproducing a prior run exactly (default: random)")
     parser.add_argument("--out", default="qwen3_test_output.mp3", help="Output file path")
     parser.add_argument("--list-voices", action="store_true", help="List available voices and languages, then exit")
     args = parser.parse_args()
@@ -73,6 +86,8 @@ def main():
     converter = Qwen3TTSConverter(
         model=args.model, voice=args.voice, language=args.language, instruct=instruct,
         max_tokens=args.max_tokens, reload_every=args.reload_every,
+        temperature=args.temperature, top_p=args.top_p, top_k=args.top_k,
+        repetition_penalty=args.repetition_penalty, seed=args.seed,
     )
     output_path = converter.generate_to_file(args.text, args.out)
     print(f"✅ Saved: {output_path}")

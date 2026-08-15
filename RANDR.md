@@ -90,6 +90,14 @@ This ensures that the book starts from the correct position, e.g.:
 
 > **10: CHAPTER I. Down the Rabbit-Hole**
 
+Add `--split-sentences` to split each paragraph into individual sentence/clause chunks
+(on `. ! ? : ;`) instead of one JSON entry per paragraph — small local TTS models
+generate more reliably on short, single-sentence chunks:
+
+```bash
+python epub_to_json.py epub/pg11.epub library/pg11.json 10 --split-sentences
+```
+
 ### **Step 2: Generate TTS Audio using MLX-AUDIO**
 
 Kokoro-82M (single voice, requires the MLX-AUDIO setup above):

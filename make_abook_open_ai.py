@@ -1,7 +1,7 @@
 import os
 import sys
 import json
-from word_tokens_tools import split_into_words, scan_next, split_into_sentences, save_text
+from word_tokens_tools import build_chunk_list, next_chunk, save_text
 from openai import OpenAI
 
 API_KEY = os.getenv("OPENAI_API_KEY")  # Get API key from environment variable
@@ -38,9 +38,7 @@ if __name__ == "__main__":
         exit(1)
 
     max_word_number = 128
-    sentences = [sentence.strip() for paragraph in data["text"] for sentence in split_into_sentences(paragraph) if
-                 sentence.strip()]
-    words = split_into_words(sentences)
+    chunks, sentence_mode = build_chunk_list(data)
     available_voices = [
         "alloy",
         "ash",
@@ -83,11 +81,11 @@ if __name__ == "__main__":
     """
 
     while next_window_index < 100:
-        if last_word_index >= len(words):
+        if last_word_index >= len(chunks):
             print(f"🎉 Finished processing {path_to_json}")
             break
 
-        paragraph, next_word_index = scan_next(words, last_word_index, max_word_number)
+        paragraph, next_word_index = next_chunk(chunks, sentence_mode, last_word_index, max_word_number)
 
         file_path = os.path.join(uid_folder, f"{next_window_index}.mp3")
         response = client.audio.speech.create(

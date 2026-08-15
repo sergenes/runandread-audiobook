@@ -148,6 +148,18 @@ This ensures that the book starts from the correct position, e.g.:
 
 > **10: CHAPTER I. Down the Rabbit-Hole**
 
+Add `--split-sentences` to split each paragraph into individual sentence/clause chunks
+(on `. ! ? : ;`) instead of one JSON entry per paragraph. Small local TTS models
+(Kokoro, Qwen3-TTS, etc.) generate more reliably on short, single-sentence chunks than
+on long multi-sentence paragraphs:
+
+```bash
+python epub_to_json.py epub/pg11.epub library/pg11.json 10 --split-sentences
+```
+
+The `make_abook*.py` scripts detect this automatically from the JSON and generate one
+audio clip per sentence instead of grouping multiple sentences into a word-count window.
+
 **Note**: Without an NVIDIA GPU, converting an entire book to audio takes a long time. A **30-second** audio clip
 takes approximately **3 minutes** to generate on macbook pro, m1. A full book can take **dozens of hours**. For example,
 *Alice’s Adventures in Wonderland* is **3 hours long**, meaning **18 hours of processing** on a MacBook Pro with an M1
@@ -170,6 +182,15 @@ python play_audio.py audio/pg11 mp3
 
 ```bash
 python merge_audio_clips.py library/pg11.json audio/pg11 mp3
+```
+
+For long books, pass an optional max minutes per part to split the output into
+multiple files (e.g. `merged_output_part1.mp3`, `merged_output_part2.mp3`, ...)
+instead of one multi-GB file:
+
+```bash
+# Split into ~3-hour parts
+python merge_audio_clips.py library/pg11.json audio/pg11 mp3 180
 ```
 
 ### **Step 5: Prepare audio clip for YouTube/LinkedIn**
@@ -353,6 +374,8 @@ python make_abook_qwen3.py library/pg11.json \
 ```
 
 `--instruct-preset` picks a named style (`dramatic` default, or `steady` for calmer pacing) - see [Instruct presets](qwen3_tts/README.md#instruct-presets). `--reload-every` periodically reloads the model during long book conversions, which fixes a real decode-stability issue observed on multi-hour runs (see [Troubleshooting](qwen3_tts/README.md#troubleshooting)); it's already the default, exposed here in case you want to tune it.
+
+If clips sound inconsistent with each other clip-to-clip (different pitch/energy despite the same voice), tune `--temperature`/`--top-p`/`--seed` - see [Sampling & consistency](qwen3_tts/README.md#sampling--consistency).
 
 > **Environment check**: if you're reusing a conda/venv environment that also ran the Kokoro (`make_abook_mlx.py`) setup, make sure it has the real `mlx-audio` package, not an old editable clone (`pip install -e ~/projects/voice/mlx-audio`, per the Step 7 setup above) - run `pip show mlx-audio` in that exact environment and confirm there's no `Editable project location` line and the version is current. An old editable install was the root cause of a real "few words then silence" failure - see [qwen3_tts/README.md Troubleshooting](qwen3_tts/README.md#troubleshooting) for the fix.
 
