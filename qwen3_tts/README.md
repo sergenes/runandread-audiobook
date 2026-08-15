@@ -104,6 +104,42 @@ Select one with `--instruct-preset steady`, or pass fully custom text with `--in
 
 To add your own preset, just add an entry to the `INSTRUCT_PRESETS` dict.
 
+## Sampling & consistency
+
+CustomVoice's pitch, pacing, and energy are themselves autoregressively sampled tokens, not
+fixed per speaker — so two calls with the identical voice and instruct can still land on
+audibly different "performances" if sampling is loose. `Qwen3TTSConverter` tightens
+mlx-audio's defaults for this reason, and exposes the knobs on both `cli.py` and
+`make_abook_qwen3.py`:
+
+| Flag | Default | Effect |
+|------|---------|--------|
+| `--temperature` | `0.6` | Lower = more consistent/less expressive delivery across clips. Raise (e.g. `0.75`) if it starts sounding flat. |
+| `--top-p` | `0.85` | Nucleus sampling threshold; lower narrows the token choices further. |
+| `--top-k` | `50` | Top-k sampling. |
+| `--repetition-penalty` | `1.05` | Discourages the model from repeating itself. |
+| `--seed` | random | Fixes the RNG for reproducibility. |
+
+The RNG is seeded **once per run** (not before every clip), so a whole book draws from one
+continuous, reproducible stream instead of each chunk landing on an unrelated random draw —
+a retry after a runaway decode still forces a fresh, uncorrelated seed so it doesn't just
+repeat the same failure. `make_abook_qwen3.py` additionally **persists the chosen seed** to
+`audio/<book>/qwen3_seed.txt`, so interrupting and resuming a multi-hour/multi-day conversion
+continues on the same seed instead of drifting to a new one partway through.
+
+**Even with a fixed seed and tightened sampling, an individual clip can still land on an
+odd/emphatic delivery** — most often on very short chunks. Each chunk (especially under
+`epub_to_json.py --split-sentences`, where a chunk can be as short as two or three words) is
+synthesized as a **completely independent, stateless call**: the model never sees the
+sentence before or after it, so a short, terse, dramatic-sounding fragment (e.g. Russian
+"Нас качает.") combined with the `dramatic` instruct preset can occasionally get an
+exclamatory reading despite ending in a period. If that's happening a lot:
+- Try `--instruct-preset steady`, which explicitly asks for delivery "without overacting."
+- Lower `--temperature` further (e.g. `0.4`).
+- Avoid over-splitting: `--split-sentences` chunks on every `. ! ? : ;`, which can produce
+  very short fragments from clause-heavy prose; not using it (or merging very short chunks
+  with a neighbor before generation) gives the model more context to anchor its delivery.
+
 ## Troubleshooting
 
 **`ImportError` for `mlx` / `mlx_audio`?**

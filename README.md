@@ -375,6 +375,8 @@ python make_abook_qwen3.py library/pg11.json \
 
 `--instruct-preset` picks a named style (`dramatic` default, or `steady` for calmer pacing) - see [Instruct presets](qwen3_tts/README.md#instruct-presets). `--reload-every` periodically reloads the model during long book conversions, which fixes a real decode-stability issue observed on multi-hour runs (see [Troubleshooting](qwen3_tts/README.md#troubleshooting)); it's already the default, exposed here in case you want to tune it.
 
+If clips sound inconsistent with each other clip-to-clip (different pitch/energy despite the same voice), tune `--temperature`/`--top-p`/`--seed` - see [Sampling & consistency](qwen3_tts/README.md#sampling--consistency).
+
 > **Environment check**: if you're reusing a conda/venv environment that also ran the Kokoro (`make_abook_mlx.py`) setup, make sure it has the real `mlx-audio` package, not an old editable clone (`pip install -e ~/projects/voice/mlx-audio`, per the Step 7 setup above) - run `pip show mlx-audio` in that exact environment and confirm there's no `Editable project location` line and the version is current. An old editable install was the root cause of a real "few words then silence" failure - see [qwen3_tts/README.md Troubleshooting](qwen3_tts/README.md#troubleshooting) for the fix.
 
 ### Voices & Languages
