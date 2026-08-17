@@ -56,7 +56,7 @@ Generate **high-quality audiobooks** at home using open-source AI models! We’v
 - Clone voices from an MP3 sample.
 - Play audio clips sequentially while displaying text in the terminal.
 - Merge audio clips into one file.
-- Zyphra and Deepgram API support for cloud-based TTS.
+- Zyphra, Deepgram, OpenAI, and 60db API support for cloud-based TTS.
 - Wrap produced audio and JSON files into a ZIP readable by the Run & Read app.
 - Transfer audio files to a mobile phone and play them in the Run & Read app.
 
@@ -229,6 +229,13 @@ export OPENAI_API_KEY="your-open-api-key"
 python make_abook_open_ai.py library/pg11.json
 ```
 
+```bash
+# 60db (https://api.60db.ai)
+export SIXTYDB_API_KEY="your-60db-api-key"
+python sixtydb_api.py --voices            # list your voice_ids, then set VOICE_ID at the top of the script
+python sixtydb_api.py library/pg11.json
+```
+
 ### **Step 7: Set up MLX-AUDIO (cloned local repo)**
 
 ```bash
@@ -270,7 +277,7 @@ python make_randr.py audio/pg20203/
 flowchart LR
     A[EPUB] --> B[epub_to_json.py]
     B --> C[JSON book]
-    C --> D[make_abook.py / make_abook_mlx.py / make_abook_qwen3.py / make_abook_open_ai.py / zyphra_api.py / deepgram_api.py]
+    C --> D[make_abook.py / make_abook_mlx.py / make_abook_qwen3.py / make_abook_open_ai.py / zyphra_api.py / deepgram_api.py / sixtydb_api.py]
     D --> E[Audio clips]
     E --> F[play_audio.py]
     E --> G[merge_audio_clips.py]
@@ -294,6 +301,7 @@ runandread-audiobook/
 ├── test_scan_next.py    # Unit tests to make sure text normalization works as expected
 ├── zyphra_api.py        # Converts text into audio files with Zyphra SDK/Rest API API
 ├── deepgram_api.py      # Converts text into audio files with Deepgram SDK/Rest API API
+├── sixtydb_api.py       # Converts text into audio files with the 60db REST TTS API (api.60db.ai)
 ├── make_abook_open_ai.py# Converts text into audio files with OpenAI TTS
 ├── qwen3_tts/            # Self-contained Qwen3-TTS engine (own README + requirements.txt, no external project dependency)
 │   ├── converter.py      # Qwen3TTSConverter - model loading, voice/language selection, generation
@@ -408,6 +416,7 @@ Contributions are welcome! Feel free to open an issue or submit a pull request.
 - **[Kokoro-TTS](https://huggingface.co/spaces/hexgrad/Kokoro-TTS)** - An open-weight TTS model with 82 million parameters.
 - **[Qwen3-TTS](https://github.com/QwenLM/Qwen3-TTS)** - Open-source multilingual TTS model by the Qwen team at Alibaba Cloud, integrated self-contained in [`qwen3_tts/`](qwen3_tts/).
 - **[Deepgram](https://deepgram.com/)** - Commercial cloud-based TTS.
+- **[60db](https://60db.ai/)** - Commercial cloud-based TTS ([API docs](https://docs.60db.ai/)).
 - **[EbookLib](https://pypi.org/project/EbookLib/)** - EPUB parsing in Python.
 - **[yt-dlp](https://github.com/yt-dlp/yt-dlp)** - YouTube audio downloader for voice cloning.
 - **[Gutenberg Project](https://www.gutenberg.org)** - A library of over 75,000 free eBooks.
