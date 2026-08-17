@@ -3,7 +3,7 @@ import sys
 import json
 
 from mlx_audio.tts.generate import generate_audio, load_model
-from word_tokens_tools import split_into_words, scan_next, split_into_sentences, save_text
+from word_tokens_tools import build_chunk_list, next_chunk, save_text
 
 
 def process_text(text, file_name, uid_folder):
@@ -78,15 +78,13 @@ if __name__ == "__main__":
         exit(1)
 
     max_word_number = 50
-    sentences = [sentence.strip() for paragraph in data["text"] for sentence in split_into_sentences(paragraph) if
-                 sentence.strip()]
-    words = split_into_words(sentences)
+    chunks, sentence_mode = build_chunk_list(data)
     while True:
-        paragraph, next_word_index = scan_next(words, last_word_index, max_word_number)
-
-        if next_word_index >= len(words):
+        if last_word_index >= len(chunks):
             print(f"🎉 Finished processing {path_to_json}")
             break
+
+        paragraph, next_word_index = next_chunk(chunks, sentence_mode, last_word_index, max_word_number)
 
         process_text(paragraph, next_window_index, uid_folder)
         save_text(paragraph, next_window_index, uid_folder)
@@ -96,5 +94,5 @@ if __name__ == "__main__":
             f.write(f"{next_word_index}:{next_window_index}")
 
         last_word_index = next_word_index
-        words_total = len(words)
-        print(f"In processing: {last_word_index} of {words_total}")
+        chunks_total = len(chunks)
+        print(f"In processing: {last_word_index} of {chunks_total}")

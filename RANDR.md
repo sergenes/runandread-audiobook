@@ -12,7 +12,7 @@
 
 ## Overview
 
-**RunAndRead-Audiobook** is an open-source pipeline for creating high-quality audiobooks using **open-source AI models**. It leverages **MLX-AUDIO** and **make_abook_mlx.py** to generate **RANDR format audiobooks**, which can be played in the **Run & Read** app for Android and iOS.
+**RunAndRead-Audiobook** is an open-source pipeline for creating high-quality audiobooks using **open-source AI models**. It leverages **MLX-AUDIO** (via either **make_abook_mlx.py** for Kokoro-82M, or **make_abook_qwen3.py** for the self-contained, multi-voice/multi-language [Qwen3-TTS engine](qwen3_tts/README.md)) to generate **RANDR format audiobooks**, which can be played in the **Run & Read** app for Android and iOS.
 
 **Ensure your app version supports RANDR format:**
 - **Android**: Version **1.5 (6)** or later.
@@ -34,7 +34,7 @@
 
 - Convert **EPUB** to **JSON** for structured text extraction.
 - Manually verify extracted text to remove unwanted sections.
-- Generate TTS audio using **MLX-AUDIO (Kokoro-82M TTS model)**.
+- Generate TTS audio using **MLX-AUDIO (Kokoro-82M TTS model)**, or the self-contained **Qwen3-TTS** engine (9 voices, 10 languages - see [qwen3_tts/README.md](qwen3_tts/README.md)).
 - Merge audio clips into a single audiobook file.
 - Package audio and JSON into **RANDR format** for playback.
 - Compatible with **Run & Read** apps on **iOS** and **Android**.
@@ -90,10 +90,27 @@ This ensures that the book starts from the correct position, e.g.:
 
 > **10: CHAPTER I. Down the Rabbit-Hole**
 
+Add `--split-sentences` to split each paragraph into individual sentence/clause chunks
+(on `. ! ? : ;`) instead of one JSON entry per paragraph — small local TTS models
+generate more reliably on short, single-sentence chunks:
+
+```bash
+python epub_to_json.py epub/pg11.epub library/pg11.json 10 --split-sentences
+```
+
 ### **Step 2: Generate TTS Audio using MLX-AUDIO**
+
+Kokoro-82M (single voice, requires the MLX-AUDIO setup above):
 ```bash
 python make_abook_mlx.py library/book.json
 ```
+
+Or Qwen3-TTS (self-contained, own `qwen3_tts/requirements.txt`, no extra setup beyond that - 9 voices, 10 languages):
+```bash
+cd qwen3_tts && pip install -r requirements.txt && cd ..
+python make_abook_qwen3.py library/book.json --voice Ryan --language English
+```
+See [qwen3_tts/README.md](qwen3_tts/README.md) for the full voice/language list and options.
 
 ### **Step 3: Merge Audio Clips**
 ```bash
@@ -115,7 +132,7 @@ python make_randr.py audio/book/
 flowchart LR
     A[EPUB] --> B[epub_to_json.py]
     B --> C[JSON book]
-    C --> D[make_abook_mlx.py]
+    C --> D[make_abook_mlx.py / make_abook_qwen3.py]
     D --> E[Audio clips]
     E --> F[merge_audio_clips.py]
     F --> G[make_randr.py]
@@ -128,9 +145,11 @@ flowchart LR
 ```
 runandread-audiobook/
 ├── epub_to_json.py      # Extracts text from EPUB into JSON
-├── make_abook_mlx.py    # Generates audio using MLX-AUDIO
+├── make_abook_mlx.py    # Generates audio using MLX-AUDIO (Kokoro-82M)
+├── make_abook_qwen3.py  # Generates audio using Qwen3-TTS (self-contained, see qwen3_tts/)
 ├── merge_audio_clips.py # Merges TTS-generated clips
 ├── make_randr.py        # Packages audio & JSON into RANDR format
+├── qwen3_tts/            # Self-contained Qwen3-TTS engine (own README + requirements.txt)
 ├── assets/              # Icons, QR codes, and app store assets
 ├── epub/                # EPUB source files
 ├── audio/               # Generated audio files
@@ -139,6 +158,7 @@ runandread-audiobook/
      ├── pg2680.randr    # Meditations by Emperor of Rome Marcus Aurelius
      ├── pg20203.randr   # Autobiography of Benjamin Franklin
 ├── README.md            # Documentation
+├── CHANGELOG.md         # Notable changes
 └── requirements.txt     # Dependencies
 ```
 
@@ -154,6 +174,7 @@ We welcome contributions! Open an **issue** or submit a **pull request**.
 
 - **[MLX-AUDIO](https://github.com/Blaizzy/mlx-audio)** - TTS & STS library optimized for Apple M-series.
 - **[Kokoro-TTS](https://huggingface.co/spaces/hexgrad/Kokoro-TTS)** - Open-weight TTS model.
+- **[Qwen3-TTS](https://github.com/QwenLM/Qwen3-TTS)** - Multilingual, multi-voice TTS model, integrated self-contained in [`qwen3_tts/`](qwen3_tts/).
 - **[EbookLib](https://pypi.org/project/EbookLib/)** - EPUB parsing.
 - **[Project Gutenberg](https://www.gutenberg.org)** - Free eBooks.
 

@@ -1,0 +1,10 @@
+# Self-contained dependencies for the qwen3_tts module.
+# Requires Apple Silicon (arm64 macOS) - MLX does not run on Intel/Windows/Linux.
+#
+# This is intentionally separate from the root requirements.txt so that
+# RunAndRead-Audiobook users who don't want Qwen3-TTS don't need to install
+# these. See README.md in this folder ("How to add support").
+
+mlx-audio>=0.4.8
+mlx>=0.32.0
+numpy>=1.24
