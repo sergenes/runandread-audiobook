@@ -9,8 +9,6 @@ API_KEY = os.getenv("ZYPHRA_API_KEY")  # Get API key from environment variable
 if not API_KEY:
     raise ValueError("ZYPHRA_API_KEY is not set")
 
-print(f"API_KEY: {API_KEY}")
-
 client = ZyphraClient(api_key=API_KEY)
 
 if __name__ == "__main__":
